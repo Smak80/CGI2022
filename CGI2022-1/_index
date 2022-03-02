@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="Windows-1251">
+    <title>Мой сайт для 1 курса</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+<div class="header">
+<!--#HEADER#-->
+</div>
+<div class="center">
+    <div class="container">
+        <div class="menu">
+            <div class="menu-header">Выберите задание:</div>
+<!--#MENU#-->
+        </div>
+        <div class="content">
+<!--#CONTENT#-->
+        </div>
+    </div>
+    <div class="footer">
+        Блок 4 ("Подвал")
+    </div>
+</div>
+</body>
+</html>
