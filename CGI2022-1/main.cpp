@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include "cgi.h"
+
 using namespace std;
 
 void show_content();
@@ -66,5 +68,16 @@ void show_menu()
 
 void show_content()
 {
-	cout << "А это дополнительный текст на первой странице";
+	cout << "<form method='get' action='index.cgi'>";
+	cout << "Введите своё имя: <input type='text' name='imya' maxlength='50' size='50'><br>";
+	cout << "Введите свой e-mail: <input type='email' name='email' maxlength='50' size='50'><br>";
+	cout << "<input type='submit' value='Отправить'>";
+	cout << "</form>";
+	char* data = nullptr;
+	get_form_data(data);
+	if (data && strlen(data)>0)
+	{
+		cout << "<div>" << data << "</div>";
+	}
+	delete[] data;
 }
