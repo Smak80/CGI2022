@@ -73,11 +73,20 @@ void show_content()
 	cout << "Введите свой e-mail: <input type='email' name='email' maxlength='50' size='50'><br>";
 	cout << "<input type='submit' value='Отправить'>";
 	cout << "</form>";
+#ifndef _DEBUG
 	char* data = nullptr;
 	get_form_data(data);
+#else
+	const char* data = "imya=Sergey&email=a%40b.ru";
+#endif
 	if (data && strlen(data)>0)
 	{
 		cout << "<div>" << data << "</div>";
+		char* value = nullptr;
+		get_param_value(value, "imya", data);
+		cout << "<div>" << value << "</div>";
+		get_param_value(value, "email", data);
+		cout << "<div>" << value << "</div>";
 	}
 	delete[] data;
 }

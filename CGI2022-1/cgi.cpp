@@ -69,6 +69,7 @@ void get_form_data(char*& data)
 void get_param_value(char*& value, const char* param_name, const char* data)
 {
 	delete[] value;
+	value = nullptr;
 	char* str = _strdup(data);
 	char* tmp = str;
 	char* cont;
@@ -79,8 +80,8 @@ void get_param_value(char*& value, const char* param_name, const char* data)
 		char* key = strtok_s(part, "=", &val);
 		if (!_strcmpi(param_name, key))
 		{
-			//str_decode(value, val);
-			value = _strdup(val);
+			str_decode(value, val);
+			//value = _strdup(val);
 			delete[] str;
 			return;
 		}
@@ -88,4 +89,43 @@ void get_param_value(char*& value, const char* param_name, const char* data)
 	delete[] str;
 	value = new char[1];
 	value[0] = 0;
+}
+
+/**
+ * Раскодирование переданных данных
+ */
+void str_decode(char*& dec_str, const char* enc_str)
+{
+	char* res = new char[strlen(enc_str) + 1];
+	int i = 0, j = 0;
+	while (enc_str[i])
+	{
+		if (enc_str[i] == '+')
+		{
+			res[j] = ' ';
+		}
+		else
+		{
+			if (enc_str[i] == '%')
+			{
+				char ch[3] = { enc_str[i + 1], enc_str[i + 2], 0 };
+				int c;
+				sscanf_s(ch, "%X", &c);
+				res[j] = c;
+				i += 2;
+			}
+			else
+			{
+				res[j] = enc_str[i];
+			}
+		}
+		i++;
+		j++;
+	}
+	res[j] = 0;
+	size_t len = strlen(res) + 1;
+	delete[] dec_str;
+	dec_str = new char[len];
+	strcpy_s(dec_str, len, res);
+	delete[] res;
 }
